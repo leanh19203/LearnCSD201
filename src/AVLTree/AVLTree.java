@@ -207,5 +207,35 @@ public class AVLTree {
             }
             
         }
+       
     }
+    public Node RL_Rotate(Node pa){
+        if(pa.right.left==null)return pa;
+        else{
+            pa.right=RRotate(pa.right);
+            return LRotate(pa);
+        }
+    }
+    public void RightLeft_Rotate(int xPrice){
+        if(isEmpty())return;
+        Node pa = root, f = null;
+        while(pa!=null&& pa.info.price!= xPrice){
+            f=pa;
+            if(xPrice<pa.info.price){
+                pa=pa.left;
+            }
+        }if(pa!=null){
+            if(f==null){
+                root= RL_Rotate(pa);
+            }else{
+                if(f.left==pa){
+                    f.left=RL_Rotate(pa);
+                    
+                }else{
+                    f.right=RL_Rotate(pa);
+                }
+            }
+        }
+    }
+    
 }
