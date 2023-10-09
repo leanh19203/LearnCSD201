@@ -20,8 +20,10 @@ public class Main {
         t.insert("hrv2","den", 150);    t.insert("ForEV2","den", 82);
         t.insert("hrv3","den", 87);     t.insert("ForEV3","den", 86);
 //      t.blanceTree(); t.BreadthFirst(t.root);
-        t.LeftRotate(90); t.BreadthFirst(t.root);
+//        t.LeftRotate(90); t.BreadthFirst(t.root);
+//        System.out.println("");
+//        t.RightRotate(90); t.BreadthFirst(t.root);
         System.out.println("");
-        t.RightRotate(90); t.BreadthFirst(t.root);
+        t.LeftRight_Rotate(90); t.BreadthFirst(t.root);
     }  
 }

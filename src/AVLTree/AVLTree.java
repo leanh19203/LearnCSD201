@@ -177,5 +177,35 @@ public class AVLTree {
            else f.right=RRotate(p);
        }
        
-   }
+   }//quay ca trai vaf quay ca phai
+    public  Node LR_Rotate(Node pa){
+        if(pa.left.right==null){
+            return pa;
+        }
+        pa.left = LRotate( pa.left);
+        return RRotate(pa);
+        
+    }
+    public void LeftRight_Rotate(int xPrice){
+        if(isEmpty())return;
+        Node pa=root, f=null;
+        while(pa!=null&&pa.info.price!=xPrice){
+            f=pa; //giu lai node cha truoc khi chuyen sang trai hoac phai
+            if(xPrice<pa.info.price){
+                pa=pa.left;
+            }
+            else {
+                pa=pa.right;
+            }
+        }
+        if(pa!= null){
+            if(f.left==pa){
+                f.left=LR_Rotate(pa);
+            }
+            else{
+                f.left=LR_Rotate(pa);
+            }
+            
+        }
+    }
 }
