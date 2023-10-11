@@ -162,7 +162,7 @@ public class AVLTree {
            ch.right=pa;
            return ch;
    }
-    public void RightRotate(int xprice){// tim node can quay quay phai gan lai node cha
+    public void RightRotate(double xprice){// tim node can quay quay phai gan lai node cha
        if(root==null)return;
        Node p = root, f = null;
        while(p!=null&&p.info.price!=xprice){//tim toi node can xoay
@@ -186,7 +186,7 @@ public class AVLTree {
         return RRotate(pa);
         
     }
-    public void LeftRight_Rotate(int xPrice){
+    public void LeftRight_Rotate(double xPrice){
         if(isEmpty())return;
         Node pa=root, f=null;
         while(pa!=null&&pa.info.price!=xPrice){
@@ -216,26 +216,69 @@ public class AVLTree {
             return LRotate(pa);
         }
     }
-    public void RightLeft_Rotate(int xPrice){
-        if(isEmpty())return;
+    public void RightLeft_Rotate(double xPrice) {
+        if (isEmpty()) {
+            return; // cay 0 rong thi b1 di tim node co x price
+        }
         Node pa = root, f = null;
-        while(pa!=null&& pa.info.price!= xPrice){
-            f=pa;
-            if(xPrice<pa.info.price){
-                pa=pa.left;
+        while (pa != null && pa.info.price != xPrice) {
+            f = pa;
+            if (xPrice < pa.info.price) {
+                pa = pa.left;
+            } else {
+                pa = pa.right;
             }
-        }if(pa!=null){
-            if(f==null){
-                root= RL_Rotate(pa);
-            }else{
-                if(f.left==pa){
-                    f.left=RL_Rotate(pa);
-                    
-                }else{
-                    f.right=RL_Rotate(pa);
+        }// neu tim thay thi pa!=null
+        if (pa != null) {
+            if (f == null) {//pa can xoay chinh la node root
+                root = RL_Rotate(pa);
+            } else {//PA CAN XOAY KHONG PHAI ROOT
+                if (f.left == pa) {
+                    f.left = RL_Rotate(pa);
+                } else {
+                    f.right = RL_Rotate(pa);
                 }
             }
         }
     }
-    
+
+// Can bang cay dung phep quay cay
+    public void blance(Node p) {// p la node moi chen them hoac xoa di (xPrice)
+        ArrayList<Node> a = new ArrayList<Node>(); // khai bao mot mang de phan ra cay
+        Node q = root;
+        while (q != p && q != null) { // tim toi node moi thme hoac xoa p
+            a.add(q);
+            if (p.info.price < q.info.price) {
+                q = q.left;
+            } else {
+                q = q.right;
+            }
+        }// xa 1 nhanh cua cay ban dau vao trong mang a
+        for (Node x : a) {// duyet qua cac node trong mang a
+            int h = HightOfSubTree(x.left) - HightOfSubTree(x.right); // cao trai-phai
+            if (h == 2) {// lech sang trai
+                int L = HightOfSubTree(x.left.left) - HightOfSubTree(x.left.right);
+                if (L == 1) {// lech trai hoan toan -> phai quay phai
+                    RightRotate(x.info.price);
+                } else if (L == -1) {// lech trai xong lech phai
+                    LeftRight_Rotate(x.info.price);
+                }
+            } else if (h == -2) {
+                int L = HightOfSubTree(x.right.left) - HightOfSubTree(x.left.right);
+                if (L == -1) {// lech phai hoan toan -> phai quay phai
+                    RightRotate(x.info.price);
+                } else if (L == -1) {// lech trai xong lech trai
+                    RightLeft_Rotate(x.info.price);
+                }
+            }
+        }
+    }
+
+    public void InsertAVLTree(String brand, String color, double price) {
+        Node p = new Node(new Car(brand, color, price), null, null);
+        insert(p); // chen 1 node vao cay 
+        blance(p); // chen xong lai di can bang
+    }
+
 }
+
