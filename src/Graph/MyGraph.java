@@ -29,16 +29,29 @@ public class MyGraph {
         Queue q = new Queue();
         q.enQueue(k);
         while(!q.isEmpty()){
-           visit(k);
+            int x=q.deQueue();
+           visit(x);
            for(int i =0;i<N;i++){
                if(visited[i]==false && E[k][i]>0){
                    q.enQueue(i);
+                   visited[i] = true;
                }
            }
         }
     }
-    public void visit(int x){
-        System.out.println(""+ V[x]);
+    public void visit(int x){// tham dinh x
+        System.out.println(""+ V[x]);// hien ra chu cai voi dinh thu i
     }
-   
+    
+    public  void breadth(int k){
+        boolean[] visited = new boolean[N];
+        for(int i = 0; i<N; i++){
+            visited[i]=false; 
+        }
+         Breadth(k, visited);
+         for(int i =0; i<N;i++){
+             if(visited[i]==false)
+                 Breadth(i, visited);
+         }
+    }
 }
