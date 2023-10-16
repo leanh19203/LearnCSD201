@@ -26,6 +26,13 @@ public class Main {
             };
     int n = 9;
     MyGraph g = new MyGraph(n, e);
+        System.out.println("breadth");
     g.breadth(2);
+        System.out.println("\ndepth");
+    g.Depth(2);
+        System.out.println("\ndepth2");
+    g.Depth2(2);
+        System.out.println("\ndepth3");
+    g.Depth3(2);
    }
 }
